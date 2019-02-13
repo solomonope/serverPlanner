@@ -1,5 +1,6 @@
 package de.moebel.service;
 
+import de.moebel.exception.InvalidArgumentException;
 import de.moebel.model.Computer;
 import org.junit.Test;
 
@@ -89,8 +90,9 @@ public class ServerPlannerTest
 
     }
 
+
     @Test
-    public void Calculate_SlightlyOVerflowingRAM_AddNewServer() throws Exception
+    public void Calculate_SlightlyOverflowingRAM_AddNewServer() throws Exception
     {
         int expectedServerCount = 2;
         Computer[] virtualMachines = {
@@ -109,6 +111,52 @@ public class ServerPlannerTest
 
     }
 
+
+    @Test(expected = InvalidArgumentException.class)
+    public void Calculate_NULLServerType_ThrowsInvalidArgumentException() throws Exception
+    {
+        Computer[] virtualMachines = {
+            new Computer(2, 32, 100),
+            new Computer(1, 16, 10),
+            new Computer(1, 17, 10),
+            new Computer(3, 32, 100),
+        };
+        Computer serverType = null;
+
+        ServerPlanner serverPlanner = new ServerPlanner();
+
+        serverPlanner.calculate(serverType, virtualMachines);
+
+
+    }
+
+
+    @Test(expected = InvalidArgumentException.class)
+    public void Calculate_NULLVirtualMachines_ThrowsInvalidArgumentException() throws Exception
+    {
+        Computer[] virtualMachines = null;
+        Computer serverType = new Computer(3, 32, 50);
+
+        ServerPlanner serverPlanner = new ServerPlanner();
+
+        serverPlanner.calculate(serverType, virtualMachines);
+
+
+    }
+
+
+    @Test(expected = InvalidArgumentException.class)
+    public void Calculate_EmptyVirtualMachines_ThrowsInvalidArgumentException() throws Exception
+    {
+        Computer[] virtualMachines = new Computer[5];
+        Computer serverType = new Computer(3, 32, 50);
+
+        ServerPlanner serverPlanner = new ServerPlanner();
+
+        serverPlanner.calculate(serverType, virtualMachines);
+
+
+    }
 
 
 }

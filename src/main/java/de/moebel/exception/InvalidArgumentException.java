@@ -1,8 +1,9 @@
 package de.moebel.exception;
 
-/**
- * Created by s.folorunsho on 13.02.19.
- */
-public class InvalidArgumentException
+public class InvalidArgumentException extends RuntimeException
 {
+    public InvalidArgumentException(String message)
+    {
+        super(message);
+    }
 }
