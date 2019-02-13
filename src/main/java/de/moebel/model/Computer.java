@@ -2,33 +2,33 @@ package de.moebel.model;
 
 public class Computer
 {
-    private final Integer cpu;
-    private final Integer ram;
-    private final Integer hdd;
+    private final Integer CPU;
+    private final Integer RAM;
+    private final Integer HDD;
 
 
-    public Computer(Integer cpu, Integer ram, Integer hdd)
+    public Computer(Integer CPU, Integer RAM, Integer HDD)
     {
-        this.cpu = cpu;
-        this.ram = ram;
-        this.hdd = hdd;
+        this.CPU = CPU;
+        this.RAM = RAM;
+        this.HDD = HDD;
     }
 
 
-    public Integer getCpu()
+    public Integer getCPU()
     {
-        return cpu;
+        return CPU;
     }
 
 
-    public Integer getRam()
+    public Integer getRAM()
     {
-        return ram;
+        return RAM;
     }
 
 
-    public Integer getHdd()
+    public Integer getHDD()
     {
-        return hdd;
+        return HDD;
     }
 }

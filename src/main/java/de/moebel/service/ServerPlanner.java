@@ -5,59 +5,74 @@ import java.util.Arrays;
 
 public class ServerPlanner
 {
+    /***
+     *
+     * @param serverType
+     * @param virtualMachines
+     * @return
+     */
     public int calculate(Computer serverType, Computer... virtualMachines)
     {
         int serverCount = 1;
-        int currentCPU = serverType.getCpu();
-        int currentRAM = serverType.getRam();
-        int currentHDD = serverType.getHdd();
+        int currentCPU = serverType.getCPU();
+        int currentRAM = serverType.getRAM();
+        int currentHDD = serverType.getHDD();
 
         Computer[] sortedVirtualMachines = virtualMachines.clone();
-
-        Arrays.sort(sortedVirtualMachines, (Computer left, Computer right) ->
-        {
-            int cpuCompare = left.getCpu().compareTo(right.getCpu());
-            int ramCompare = left.getRam().compareTo(right.getRam());
-            int hddCompare = left.getHdd().compareTo(right.getHdd());
-
-            if (cpuCompare == 0)
-            {
-                if (ramCompare == 0)
-                {
-                    return ((hddCompare == 0) ? ramCompare : hddCompare);
-                }
-                else
-                {
-                    return ramCompare;
-                }
-            }
-            else
-            {
-                return cpuCompare;
-            }
-
-        });
+        Arrays.sort(sortedVirtualMachines, (Computer left, Computer right) -> compare(left, right));
 
         for (Computer computer : sortedVirtualMachines)
         {
-            if (serverType.getCpu() < computer.getCpu() || serverType.getRam() < computer.getRam() || serverType.getHdd() < computer.getHdd())
+            if (serverType.getCPU() < computer.getCPU() || serverType.getRAM() < computer.getRAM() || serverType.getHDD() < computer.getHDD())
             {
                 continue;
             }
 
-            if (!(currentCPU >= computer.getCpu() && currentRAM >= computer.getRam() && currentHDD >= computer.getHdd()))
+            if (currentCPU < computer.getCPU() || currentRAM < computer.getRAM() || currentHDD < computer.getHDD())
             {
                 serverCount++;
-                currentCPU = serverType.getCpu();
-                currentRAM = serverType.getRam();
-                currentHDD = serverType.getHdd();
+                currentCPU = serverType.getCPU();
+                currentRAM = serverType.getRAM();
+                currentHDD = serverType.getHDD();
             }
 
-            currentCPU -= computer.getCpu();
-            currentRAM -= computer.getRam();
-            currentHDD -= computer.getHdd();
+            currentCPU -= computer.getCPU();
+            currentRAM -= computer.getRAM();
+            currentHDD -= computer.getHDD();
         }
 
         return serverCount;
     }
+
+
+    /***
+     *
+     * @param left
+     * @param right
+     * @return
+     */
+    private int compare(Computer left, Computer right)
+    {
+        int cpuCompare = left.getCPU().compareTo(right.getCPU());
+        int ramCompare = left.getRAM().compareTo(right.getRAM());
+        int hddCompare = left.getHDD().compareTo(right.getHDD());
+
+        if (cpuCompare == 0)
+        {
+            if (ramCompare == 0)
+            {
+                return ((hddCompare == 0) ? ramCompare : hddCompare);
+            }
+            else
+            {
+                return ramCompare;
+            }
+        }
+        else
+        {
+            return cpuCompare;
+        }
+
+    }
 }
+
