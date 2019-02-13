@@ -159,4 +159,27 @@ public class ServerPlannerTest
     }
 
 
+    @Test
+    public void Calculate_VirtualMachines_VirtualMachineOrderRemainsTheSame() throws Exception
+    {
+        int expectedServerCount = 2;
+        Computer sentinel = new Computer(1, 17, 10);
+        Computer[] virtualMachines = {
+            new Computer(2, 32, 100),
+            new Computer(1, 16, 10),
+            sentinel,
+            new Computer(3, 32, 100),
+        };
+        Computer serverType = new Computer(3, 32, 50);
+
+        ServerPlanner serverPlanner = new ServerPlanner();
+
+        int serverCount = serverPlanner.calculate(serverType, virtualMachines);
+
+        assertThat(serverCount).isEqualTo(expectedServerCount);
+        assertThat(virtualMachines[2]).isEqualTo(sentinel);
+
+    }
+
+
 }

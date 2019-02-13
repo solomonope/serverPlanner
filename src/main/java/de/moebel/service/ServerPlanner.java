@@ -27,6 +27,10 @@ public class ServerPlanner
         int currentRAM = serverType.getRAM();
         int currentHDD = serverType.getHDD();
 
+        /*
+        The intention is clone, so the order of array passed is not changed, But I need new copies of the object
+        within the array
+        * */
         Computer[] sortedVirtualMachines = virtualMachines.clone();
         Arrays.sort(sortedVirtualMachines, (Computer left, Computer right) -> compare(left, right));
 
