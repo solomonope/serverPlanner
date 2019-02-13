@@ -13,8 +13,8 @@ public class ServerPlannerTest
         int expectedServerCount = 2;
         Computer[] virtualMachines = {
             new Computer(2, 32, 100),
-            new Computer(2, 32, 100),
-            new Computer(2, 32, 100)
+            new Computer(1, 16, 10),
+            new Computer(1, 16, 10)
         };
         Computer serverType = new Computer(2, 32, 100);
 
